@@ -103,6 +103,22 @@ View Services:
 kubectl get services
 ```
 
+View Deployments:
+```sh
+kubectl get deployments
+```
+
+### Verify Pod is Working 
+
+Get Pod URL:
+```sh
+minikube service helloworld --url
+```
+
+```sh
+curl URL_FROM_PREVIOUS_COMMAND
+```
+  
 ## Kubernetes and Docker MacOs Install Steps
 
 Tools required: 
@@ -136,7 +152,7 @@ To verify kubectl connectivity:
 kubectl api-versions
 ```
 
-### Other Commands / TroubleShooting
+## Other Commands / TroubleShooting
 
 Stop / Delete Local K8S Cluster:
 ```sh
@@ -146,8 +162,20 @@ Start MiniKube with additional debugging:
 ```sh
 minikube start --v=10 
 ```
-View Available Image in MiniKube:
+
+Get Logs for Specific Pod (from kubectl get pods):
 ```sh
-minikube ssh
-docker images
+kubectl logs helloworld-588f7ccd97-44dh8
 ```
+
+## Backlog
+- Liveness, Readiness and Startup Probes
+- StatefulSets
+- CI/CD Flow including proper Artifiact Versioning
+- Secret Management
+- Volumes
+
+
+
+
+
