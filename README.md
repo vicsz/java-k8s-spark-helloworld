@@ -1,4 +1,4 @@
-# Sample Java Webapp (Spark Based) with Docker and Kubernetes (K8s) support
+# Sample Java Webapp with Docker and Kubernetes (K8s) support
  
 [![.github/workflows/build.yml](https://github.com/vicsz/java-k8s-spark-helloworld/actions/workflows/build.yml/badge.svg)](https://github.com/vicsz/java-k8s-spark-helloworldactions/workflows/build.yml)
 
@@ -16,15 +16,21 @@ Verify app is working:
 curl localhost:8080
 ```
 
-## Docker Steps
+## Docker Image Creation Steps
 
-Create the Docker Image (build and package)
+Build the Helloworld Jar File:
+
+```sh
+./gradlew app:build
+```
+
+Create the Docker Image:
 
 ```sh
 docker build -t local/helloworld:latest .
 ```
 
-Confirm Docker Image Created: 
+Confirm Docker Image Created:
 
 ```sh
 docker image list
@@ -56,6 +62,32 @@ docker build -f Dockerfile.buildAndPackage -t local/helloworld:latest .
 
 ## Kubernetes Steps
 
+### Make Docker Image Available to MiniKube
+
+#### Option #1: Make minikube docker available on terminal and rebuild image
+
+<i>Note: eval command can be added to your bash start script to have docker always default to the minikube version.
+```sh
+eval $(minikube docker-env)
+```
+
+```sh
+docker build -t local/helloworld:latest .
+```
+
+#### Option #2: Load local Image into MiniKube
+
+```sh
+minikube image load local/helloworld:latest
+```
+### Apply K8s YAML and Start the Pod
+
+Confirm Docker Image is available in MiniKube to Load:
+```sh
+minikube ssh
+-> docker images
+```
+
 Apply the Kubernetes YAML file:
 ```sh
 kubectl apply -f k8s/app.yaml
@@ -64,6 +96,11 @@ kubectl apply -f k8s/app.yaml
 View Running Pods:
 ```sh
 kubectl get pods
+```
+
+View Services:
+```sh
+kubectl get services
 ```
 
 ## Kubernetes and Docker MacOs Install Steps

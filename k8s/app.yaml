@@ -7,8 +7,8 @@ metadata:
 spec:
   ports:
     - name: http
-      port: 8000
-      targetPort: 8000
+      port: 8080
+      targetPort: 8080
   selector:
     app: helloworld
   type: LoadBalancer
@@ -31,9 +31,9 @@ spec:
     spec:
       containers:
         - name: helloworld
-          image: local/java-helloworld:latest
+          image: local/helloworld:latest
           imagePullPolicy: Never
           args:
-            - localhost:8000
+            - localhost:8080
           ports:
-            - containerPort: 8000
+            - containerPort: 8080
