@@ -1,0 +1,22 @@
+name: Build, Test, and Create Docker Image
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - name: Setup JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+          java-package: jdk
+      - name: Build and Test Project
+        run: ./gradlew app:build
+      - name: Docker Build
+        uses: docker/build-push-action@v2

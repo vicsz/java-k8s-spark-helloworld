@@ -1,0 +1,9 @@
+FROM gradle:jdk11 as build-image
+COPY --chown=gradle:gradle . app
+WORKDIR app
+RUN gradle app:build
+
+FROM openjdk:12-alpine
+COPY --from=build-image app/build/libs/app.jar app.jar
+ENTRYPOINT java -jar app.jar
+EXPOSE 8080
