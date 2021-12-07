@@ -1,8 +1,8 @@
-# java-k8s-spark-helloworld
+# Sample Java Webapp (Spark Based) with Docker and Kubernetes (K8s) support
  
 [![.github/workflows/build.yml](https://github.com/vicsz/java-k8s-spark-helloworld/actions/workflows/build.yml/badge.svg)](https://github.com/vicsz/java-k8s-spark-helloworldactions/workflows/build.yml)
 
-# Normal Steps
+## Normal Steps
 
 Run the app:
 
@@ -16,12 +16,12 @@ Verify app is working:
 curl localhost:8080
 ```
 
-# Docker Steps
+## Docker Steps
 
 Create the Docker Image (build and package)
 
 ```sh
-docker build -t java-k8s-spark-helloworld:latest .
+docker build -t local/helloworld:latest .
 ```
 
 Confirm Docker Image Created: 
@@ -33,7 +33,7 @@ docker image list
 Run the Docker Image:
 
 ```sh
-docker run -p 8080:8080 java-k8s-spark-helloworld
+docker run -p 8080:8080 local/helloworld
 ```
 
 List Running Docker Containers:
@@ -48,17 +48,25 @@ Verify app is working:
 curl localhost:8080
 ```
 
-# Alternate Docker Step - Build and Package using Docker
+### Alternate Docker Step - Build and Package using Docker
 
 ```sh
-docker build -f Dockerfile.buildAndPackage -t java-k8s-spark-helloworld:latest .
+docker build -f Dockerfile.buildAndPackage -t local/helloworld:latest .
 ```
 
-# Kubernetes Steps
+## Kubernetes Steps
 
-<b> TODO </b>
+Apply the Kubernetes YAML file:
+```sh
+kubectl apply -f k8s/app.yaml
+```
 
-# Kubernetes and Docker MacOs Install Steps
+View Running Pods:
+```sh
+kubectl get pods
+```
+
+## Kubernetes and Docker MacOs Install Steps
 
 Tools required: 
 - Homebrew 
@@ -71,9 +79,7 @@ Tools required:
 brew update && brew install kubectl && brew install --cask docker virtualbox && brew install minikube
 ```
 
-# Starting Up Kubernetes and Docker 
-
-# Starting the Environment
+## Starting Up Kubernetes and Docker Environments
 
 1. Start the Docker Desktop Application (GUI)
 
@@ -82,7 +88,7 @@ brew update && brew install kubectl && brew install --cask docker virtualbox && 
 minikube start 
 ```
 
-# Verifying Environment is Up / Working
+### Verifying Environment is Up / Working
 
 To view the MiniKube Dashboard GUI:
 ```sh
@@ -93,7 +99,7 @@ To verify kubectl connectivity:
 kubectl api-versions
 ```
 
-# Other Commands 
+### Other Commands / TroubleShooting
 
 Stop / Delete Local K8S Cluster:
 ```sh
@@ -102,4 +108,9 @@ minikube delete
 Start MiniKube with additional debugging:
 ```sh
 minikube start --v=10 
+```
+View Available Image in MiniKube:
+```sh
+minikube ssh
+docker images
 ```
