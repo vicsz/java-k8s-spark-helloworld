@@ -103,6 +103,11 @@ View Services:
 kubectl get services
 ```
 
+Describe a Service:
+```sh
+kubectl describe svc <service-name>
+```
+
 View Deployments:
 ```sh
 kubectl get deployments
@@ -174,6 +179,10 @@ kubectl logs helloworld-588f7ccd97-44dh8
 - CI/CD Flow including proper Artifiact Versioning
 - Secret Management
 - Volumes
+- Multicontainer Pod
+- AWS K8s Deploy
+- Gradle Script Deploy / Docker Build
+- Helm Chart
 
 
 
